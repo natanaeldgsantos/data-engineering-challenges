@@ -1,8 +1,4 @@
 
-
-
-
-
 Exemplo de desafio de engenharia de dados com foco em bancos de dados NoSQL, especificamente usando o MongoDB, um banco de dados orientado a documentos.
 
 ### Desafio: "Análise de Log de Acessos em Tempo Real"
@@ -18,30 +14,77 @@ Os logs de acessos contêm informações como:
 - Localização geográfica do usuário (país e cidade)
   
 **Objetivos do Desafio**:
+
 1. **Ingestão de Dados**:
    - Criar um script que simule a ingestão de dados de logs em tempo real. Esse script deve gerar eventos de acesso simulados a cada segundo e inseri-los no MongoDB.
-   
-2. **Estrutura do Banco de Dados**:
+
+
+   ```
+      Vamos desenvolver este gerador de logs em Python, criando cada log de forma
+      randomica com a ajuda de algumas bibliotecas de mock de dados como a biblioteca
+      Fake e random.
+      Será um bom momento para demonstrar conceitos de estruturação de projetos em Python,
+      como lidar com secret e variáveis de ambiente, geração de logs e outros pontos.
+
+      O banco de dados NoSQL escolhido será o MongoDB Atlas, acessível de forma web atráves
+      de uma camada free para desenvolvimento.
+
+   ```
+1. **Estrutura do Banco de Dados**:
    - Defina o esquema de documentos no MongoDB para armazenar os logs de acesso. Considere a estrutura flexível, mas que permita consultas eficientes para a análise de dados.
+  
+   ```python
+   # Os logs vão seguir a seguinte estrutura final, como JSON:
    
-3. **Processamento de Dados**:
+      {
+      	"id": "", 
+      	"access_timestamp": "", 
+      	"device": "", 
+      	"content_type": "", 
+      	"location": {
+                   "country": "",
+                   "city": ""
+      		}
+      }
+   
+    # Estou gerando também um _id unico de identificação com o uuid.uuid4
+   ```
+   
+2. **Processamento de Dados**:
    - Usando PySpark ou uma ferramenta de streaming (como Apache Kafka ou Apache Spark Streaming), processe os dados em tempo real. O processamento deve incluir:
      - Identificação de picos de acessos por minuto.
      - Agrupamento de acessos por dispositivo e tipo de conteúdo.
      - Monitoramento de acessos por localização geográfica.
+    
+    ```
+      Tenho a intenção de usar PySpark Stream para processar as novas entradas no MongoDB.
 
-4. **Análise de Dados**:
+      Como opções poderíamos ia usar o Databricks Community Edition ou até mesmo subir um ambiente Spark no Google Colab.
+      Como Mongo vou usar a camada free no MongoDB Atlas
+
+    ```
+
+3. **Análise de Dados**:
    - Após processar os dados em tempo real, gere relatórios que respondam perguntas como:
      - Quais são os horários de pico de acessos?
      - Quais são os dispositivos mais usados para acessar a plataforma?
      - Qual tipo de conteúdo é mais acessado em diferentes regiões?
+
+     ```
+      Vamos gerar estas Análises no próprio notebook com PySpark ao 
+      transformar os logs em Dataframe
+
+     ```
    
-5. **Visualização dos Dados**:
+4. **Visualização dos Dados**:
    - Construa dashboards usando uma ferramenta como Tableau, Power BI ou Grafana para visualizar em tempo real os insights gerados (por exemplo, visualização de acessos por localização e dispositivos).
-   
-6. **Otimização e Escalabilidade**:
-   - Implemente uma solução de sharding no MongoDB para lidar com o aumento no volume de dados, garantindo que o banco de dados possa escalar horizontalmente conforme a plataforma cresce.
-   - Discuta como as consultas e agregações podem ser otimizadas para grandes volumes de dados.
+
+     ```
+      Vamos criar estas visualizações utilizando o Power BI Desktop
+
+     ```
+  
+
 
 ### Requisitos Técnicos:
 - **MongoDB**: para armazenamento dos logs de acesso.
@@ -50,7 +93,7 @@ Os logs de acessos contêm informações como:
 - **Python**: para scripts de ingestão de dados simulados.
 
 ### Avaliação:
-- Qualidade do esquema de dados no MongoDB.
+
 - Eficiência do pipeline de ingestão e processamento de dados.
 - Capacidade de escalar o banco de dados para suportar grandes volumes de dados.
 - Clareza e utilidade dos insights gerados.
@@ -60,6 +103,3 @@ Os logs de acessos contêm informações como:
 Implemente uma funcionalidade de detecção de anomalias no pipeline, que alerte automaticamente se o número de acessos por minuto ultrapassar um certo limite predefinido, indicando possível comportamento incomum (como um ataque de bot).
 
 Esse desafio combina habilidades de engenharia de dados, big data e visualização, proporcionando uma experiência prática em cenários reais de processamento de grandes volumes de dados.
-
-
-
